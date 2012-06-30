@@ -1,0 +1,16 @@
+body {
+    margin-top: 50px;
+}
+
+.accordion {
+    width: 600px;
+    margin: 3em auto;
+}
+
+.accordion-group {
+    border: 0px;
+}
+
+.accordion-heading {
+    background-color: #049CDB;
+}

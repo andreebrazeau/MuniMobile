@@ -1,0 +1,17 @@
+setup.cfg
+setup.py
+twilio/__init__.py
+twilio/twiml.py
+twilio/util.py
+twilio.egg-info/PKG-INFO
+twilio.egg-info/SOURCES.txt
+twilio.egg-info/dependency_links.txt
+twilio.egg-info/requires.txt
+twilio.egg-info/top_level.txt
+twilio/contrib/__init__.py
+twilio/contrib/httplib2/__init__.py
+twilio/contrib/httplib2/iri2uri.py
+twilio/contrib/httplib2/socks.py
+twilio/contrib/jwt/__init__.py
+twilio/rest/__init__.py
+twilio/rest/resources.py
