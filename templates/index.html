@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>Muni Mobile TODO: NOT DECIDE YET!</title>
     <!-- TODO: change it to STATIC_URL -->
     <!-- <link href="../staticcss/bootstrap.min.css" rel="stylesheet"> -->
@@ -14,35 +15,44 @@
       <div class="accordion" id="accordion">
         <div class="accordion-group">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-              Route
-            </a>
+            <p class="pull-right" id="selectedRoute"></p>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Route</a>
           </div>
           <div id="collapseOne" class="accordion-body collapse in">
             <div class="accordion-inner" id="routes">
-              Test Test Test Test
+              Select Route.
             </div>
           </div>
         </div>
         <div class="accordion-group">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-              Direction
-            </a>
+            <p class="pull-right" id="selectedDirection"></p>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Direction</a>
           </div>
           <div id="collapseTwo" class="accordion-body collapse">
             <div class="accordion-inner" id="directions">
+              Select Route first.
             </div>
           </div>
         </div>
         <div class="accordion-group">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-              Stop
-            </a>
+            <p class="pull-right" id="selectedStop"></p>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">Stop</a>
           </div>
           <div id="collapseThree" class="accordion-body collapse">
             <div class="accordion-inner" id="stops">
+              Select Route and Direction first.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">Prediction</a>
+          </div>
+          <div id="collapseFour" class="accordion-body collapse">
+            <div class="accordion-inner" id="predictions">
+              Select Route and Direction and Stop first.
             </div>
           </div>
         </div>
@@ -53,7 +63,16 @@
     <script src="../static/js/jquery-1.7.2.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script>
+      var selectedRouteTag;
+      var selectedDirectionTag;
+      var selectedStopId;
       $(document).ready(function() {
+        /*
+        $.ajax(
+          type: "GET",
+          url: "/get_all_routes/",
+        }).done(getRoutessSuccess(data));
+        */
         var routes_result = [{'tag': 'F', 'title': 'F-Market & Wharves'},
         {'tag': 'J', 'title': 'J-Church'},
         {'tag': 'KT', 'title': 'KT-Ingleside/Third Street'},
@@ -136,18 +155,111 @@
         {'tag': '60', 'title': 'Powell/Hyde Cable Car'},
         {'tag': '61', 'title': 'California Cable Car'}];
         var route_str = '<div class="row">';
-          for (var i=0; i < routes_result.length; i++) {
-            if (i == 0 || (i % 30) == 0) {
-              route_str += '<div class="span2">';
-            }
-            route_str = route_str + '<p>' + routes_result[i].title + '</p>';
-            if ((i % 30) == 29) {
-              route_str += '</div>';
-            }
+        for (var i=0; i < routes_result.length; i++) {
+          if (i === 0 || (i % 22) === 0) {
+            route_str += '<div class="span2">';
           }
-          route_str += '</div>'
+          var str = '<p class="route" data-routetag="' + routes_result[i].tag + '">' + routes_result[i].title + '</p>';
+          route_str += str;
+          if ((i % 22) === 21) {
+            route_str += '</div>';
+          }
+        }
+        route_str += '</div>'
         $('#routes').html(route_str);
+        $('p.route').mouseover(function() {
+          $(this).addClass('mouseon');
+        }).mouseout(function() {
+          $(this).removeClass('mouseon');
+        }).click(function() {
+          $('p.route').removeClass('selected');
+          $(this).addClass('selected');
+          $('#selectedRoute').html($(this).html());
+          selectedRouteTag = $(this).attr('data-routetag');
+          $('#collapseOne').collapse('hide');
+          $('#collapseTwo').collapse('show');
+          /*
+          $.ajax(
+            type: "POST",
+            url: "/get_directions_of_route/",
+            data: { route_tag: selectedRouteTag }
+          }).done(getDirectionsSuccess(data));
+          */
+          data = [{tag: '111', title: 'INBOUND'}, {tag: '222', title: 'OUTBOUND'}]
+          getDirectionsSuccess(data);
+        });
       });
+
+      function getDirectionsSuccess(data) {
+        var directions_str = '';
+        for (var i = 0; i < data.length; i++) {
+          var str = '<p class="direction" data-directiontag="' + data[i].tag + '">' + data[i].title + '</p>';
+          directions_str += str;
+        }
+        $('#directions').html(directions_str);
+        $('p.direction').mouseover(function() {
+          $(this).addClass('mouseon');
+        }).mouseout(function() {
+          $(this).removeClass('mouseon');
+        }).click(function() {
+          $('p.direction').removeClass('selected');
+          $(this).addClass('selected');
+          $('#selectedDirection').html($(this).html());
+          selectedDirectionTag = $(this).attr('data-directiontag');
+          $('#collapseTwo').collapse('hide');
+          $('#collapseThree').collapse('show');
+          /*
+          $.ajax(
+            type: "POST",
+            url: "/get_stops/",
+            data: { route_tag: selectedRouteTag, direction_tag: selectedDirectionTag }
+          }).done(getStopsSuccess(data));
+          */
+          var data = [{stop_id: '111', title: 'Columbus Ave & Union St'}, {stop_id: '222', title: 'North Point St & Larkin St'}];
+          getStopsSuccess(data);
+        });
+      }
+
+      function getStopsSuccess(data) {
+        var stops_str = '';
+        for (var i = 0; i < data.length; i++) {
+          var str = '<p class="stop" data-stopid="' + data[i].stop_id + '">' + data[i].title + '</p>';
+          stops_str += str;
+        }
+        $('#stops').html(stops_str);
+        $('p.stop').mouseover(function() {
+          $(this).addClass('mouseon');
+        }).mouseout(function() {
+          $(this).removeClass('mouseon');
+        }).click(function() {
+          $('p.stop').removeClass('selected');
+          $(this).addClass('selected');
+          $('#selectedStop').html($(this).html());
+          selectedStopId = $(this).attr('data-stopid');
+          $('#collapseThree').collapse('hide');
+          $('#collapseFour').collapse('show');
+          /*
+          $.ajax(
+            type: "POST",
+            url: "/get_predictions_for_stop/",
+            data: { stop_id: selectedStopId, route_tag: selectedRouteTag }
+          }).done(getPredictionsSuccess(data));
+          */
+          var data = {predictions: [3, 10, 25]};
+          getPredictionsSuccess(data);
+        });
+      }
+
+      function getPredictionsSuccess(data) {
+        var predictions_str = '<h3>Selected vehicles are arriving in...</h3>';
+        var predictions = data.predictions;
+        for (var i=0; i<predictions.length; i++) {
+          var pre = predictions[i];
+          predictions_str = predictions_str + '<p>' + pre + ' mins</p>';
+        }
+        $('#predictions').html(predictions_str);
+      }
+
     </script>
   </body>
 </html>

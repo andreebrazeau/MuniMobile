@@ -1,10 +1,51 @@
 body {
-    margin-top: 50px;
+    margin-top: 20px;
+    background-image: url("../img/bg_stripe.png");
 }
 
 .accordion {
-    width: 600px;
+    width: 650px;
     margin: 3em auto;
+}
+.accordion-inner {
+    border-top: 0px;
+    background-color: #fff;
+}
+#routes {
+    height: 300px;
+    overflow: auto;
+}
+#stops {
+    height: 300px;
+    overflow: auto;
+}
+.accordion-heading .accordion-toggle,
+.accordion-heading p {
+    color: #eff;
+    font-size: 18px;
+    line-height: 20px;
+}
+.accordion-heading p {
+    padding: 8px 15px;
+    margin: 0;
+}
+@media (min-width: 768px) and (max-width: 979px) {
+    .accordion {
+        width: 506px;
+    }
+}
+@media (min-width: 1200px) {
+    .accordion {
+        width: 800px;
+    }
+}
+
+.mouseon {
+    background-color: #ccc;
+}
+
+.selected {
+    background-color: #ccc;
 }
 
 .accordion-group {
