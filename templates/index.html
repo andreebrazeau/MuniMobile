@@ -31,7 +31,7 @@
           </div>
           <div id="collapseTwo" class="accordion-body collapse">
             <div class="accordion-inner" id="directions">
-              Select Route first.
+              <div class="alert">Select Route first.</div>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
           </div>
           <div id="collapseThree" class="accordion-body collapse">
             <div class="accordion-inner" id="stops">
-              Select Route and Direction first.
+              <div class="alert">Select Route and Direction first.</div>
             </div>
           </div>
         </div>
@@ -52,7 +52,30 @@
           </div>
           <div id="collapseFour" class="accordion-body collapse">
             <div class="accordion-inner" id="predictions">
-              Select Route and Direction and Stop first.
+              <div class="alert">Select Route and Direction and Stop first.</div>
+              <div class="row">
+                <div id="livePredictions" class="span4"></div>
+                <div id="form" class="span4" style="display: none;">
+                  <div class="alert" id="formError" style="display: none;"></div>
+                  <div class="alert alert-success" id="formSuccess" style="display: none;"></div>
+                  <p>Phone: <input type="text" class="span2" placeholder="1234567890" id="phone">
+                  <span class="help-inline">10 digits without spaces or dash.</span>
+                  </p>
+                  <p>
+                  From: <input type="text" class="input-small" placeholder="7:00 am" id="fromDate" data-provide="typeahead" data-source="['0:00 am', '0:15 am', '0:30 am']">
+                  To: <input type="text" class="input-small" placeholder="8:00 am" id="toDate" data-provide="typeahead"></p>
+                  <p>
+                  <input type="checkbox" id="chk1">Mon&nbsp;
+                  <input type="checkbox" id="chk2">Tue&nbsp;
+                  <input type="checkbox" id="chk3">Wed&nbsp;
+                  <input type="checkbox" id="chk4">Thu&nbsp;
+                  <input type="checkbox" id="chk5">Fri&nbsp;
+                  <input type="checkbox" id="chk6">Sat&nbsp;
+                  <input type="checkbox" id="chk7">Sun&nbsp;
+                  </p>
+                  <button class="btn btn-primary" id="notifyButton">Notify Me By SMS</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,7 +96,8 @@
           url: "/get_all_routes/",
         }).done(getRoutessSuccess(data));
         */
-        var routes_result = [{'tag': 'F', 'title': 'F-Market & Wharves'},
+        $('#notifyButton').click(setNotification);
+        var data = [{'tag': 'F', 'title': 'F-Market & Wharves'},
         {'tag': 'J', 'title': 'J-Church'},
         {'tag': 'KT', 'title': 'KT-Ingleside/Third Street'},
         {'tag': 'L', 'title': 'L-Taraval'},
@@ -154,12 +178,16 @@
         {'tag': '59', 'title': 'Powell/Mason Cable Car'},
         {'tag': '60', 'title': 'Powell/Hyde Cable Car'},
         {'tag': '61', 'title': 'California Cable Car'}];
+        getRoutessSuccess(data);
+      });
+
+      function getRoutessSuccess(data) {
         var route_str = '<div class="row">';
-        for (var i=0; i < routes_result.length; i++) {
+        for (var i=0; i < data.length; i++) {
           if (i === 0 || (i % 22) === 0) {
             route_str += '<div class="span2">';
           }
-          var str = '<p class="route" data-routetag="' + routes_result[i].tag + '">' + routes_result[i].title + '</p>';
+          var str = '<p class="route" data-routetag="' + data[i].tag + '">' + data[i].title + '</p>';
           route_str += str;
           if ((i % 22) === 21) {
             route_str += '</div>';
@@ -171,11 +199,14 @@
           $(this).addClass('mouseon');
         }).mouseout(function() {
           $(this).removeClass('mouseon');
-        }).click(function() {
+          }).click(function() {
           $('p.route').removeClass('selected');
           $(this).addClass('selected');
           $('#selectedRoute').html($(this).html());
           selectedRouteTag = $(this).attr('data-routetag');
+          resetDirection();
+          resetStop();
+          resetPrediction();
           $('#collapseOne').collapse('hide');
           $('#collapseTwo').collapse('show');
           /*
@@ -188,7 +219,82 @@
           data = [{tag: '111', title: 'INBOUND'}, {tag: '222', title: 'OUTBOUND'}]
           getDirectionsSuccess(data);
         });
-      });
+      }
+
+      function setNotification() {
+        var errorMsg = '';
+        var phone = $('#phone').val();
+        var pattern = /^\d{10}$/;
+        if (!pattern.test(phone)) {
+          errorMsg += 'Phone number should be 10 digits.<br>';
+        }
+        var fromDate = $('#fromDate').val();
+        pattern = /^\d{1,2}:\d{1,2}$/;
+        if (!pattern.test(fromDate)) {
+          errorMsg += 'From should be HH:MM format.<br>';
+        }
+        var toDate = $('#toDate').val();
+        if (!pattern.test(toDate)) {
+          errorMsg += 'To should be HH:MM format.<br>';
+        }
+        var checkedList = $('input[type=checkbox]:checked');
+        if (checkedList.length === 0) {
+          errorMsg += 'You must select at least one day.<br>';
+        } else {
+          var days = [];
+          for (var i=0; i<checkedList.length; i++) {
+            days.push(Number(checkedList[i].id.substring(3)));
+          }
+        }
+
+        if (errorMsg.length > 0) {
+          $('#formSuccess').html('');
+          $('#formSuccess').hide();
+          $('#formError').html(errorMsg);
+          $('#formError').show();
+        } else {
+          /*
+          $.ajax(
+            type: "POST",
+            url: "/set_notification/",
+            date: { phone_number: phone, stop_id: selectedStopId, route_tag: selectedRouteTag, start_time: fromDate, finish_time: toDate, days: days }
+          }).done(notificationSetSuccess(data));
+          */
+          var data = { message: 'Success!' };
+          notificationSetSuccess(data);
+        }
+      }
+
+      function notificationSetSuccess(data) {
+        $('#formError').html('');
+        $('#formError').hide();
+        $('#formSuccess').html(data.message);
+        $('#formSuccess').show();
+      }
+
+      function resetDirection() {
+        var alertDiv = $('#directions > div.alert');
+        $('#directions').html(alertDiv);
+        alertDiv.show();
+        $('#selectedDirection').html('');
+        selectedDirectionTag = null;
+      }
+      function resetStop() {
+        var alertDiv = $('#stops > div.alert');
+        $('#stops').html(alertDiv);
+        alertDiv.show();
+        $('#selectedStop').html('');
+        selectedStopId = null;
+      }
+      function resetPrediction() {
+        $('#predictions > div.alert').show();
+        $('#form').hide();
+        $('#livePredictions').html('');
+        $('#formError').html('');
+        $('#formSuccess').html('');
+        $('#formError').hide();
+        $('#formSuccess').hide();
+      }
 
       function getDirectionsSuccess(data) {
         var directions_str = '';
@@ -196,7 +302,8 @@
           var str = '<p class="direction" data-directiontag="' + data[i].tag + '">' + data[i].title + '</p>';
           directions_str += str;
         }
-        $('#directions').html(directions_str);
+        $('#directions').append(directions_str);
+        $('#directions > div.alert').hide();
         $('p.direction').mouseover(function() {
           $(this).addClass('mouseon');
         }).mouseout(function() {
@@ -205,6 +312,8 @@
           $('p.direction').removeClass('selected');
           $(this).addClass('selected');
           $('#selectedDirection').html($(this).html());
+          resetStop();
+          resetPrediction();
           selectedDirectionTag = $(this).attr('data-directiontag');
           $('#collapseTwo').collapse('hide');
           $('#collapseThree').collapse('show');
@@ -226,7 +335,8 @@
           var str = '<p class="stop" data-stopid="' + data[i].stop_id + '">' + data[i].title + '</p>';
           stops_str += str;
         }
-        $('#stops').html(stops_str);
+        $('#stops').append(stops_str);
+        $('#stops > div.alert').hide();
         $('p.stop').mouseover(function() {
           $(this).addClass('mouseon');
         }).mouseout(function() {
@@ -236,6 +346,7 @@
           $(this).addClass('selected');
           $('#selectedStop').html($(this).html());
           selectedStopId = $(this).attr('data-stopid');
+          resetPrediction();
           $('#collapseThree').collapse('hide');
           $('#collapseFour').collapse('show');
           /*
@@ -257,9 +368,10 @@
           var pre = predictions[i];
           predictions_str = predictions_str + '<p>' + pre + ' mins</p>';
         }
-        $('#predictions').html(predictions_str);
+        $('#livePredictions').append(predictions_str);
+        $('#predictions > div.alert').hide();
+        $('#form').show();
       }
-
     </script>
   </body>
 </html>

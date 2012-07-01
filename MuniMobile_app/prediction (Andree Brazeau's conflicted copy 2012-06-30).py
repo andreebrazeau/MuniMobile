@@ -46,14 +46,14 @@ def check_for_busses(stopID, route_tag, minutes_away):
 	checked_predictions = []
 	
 	# if prediction is within fifteen minutes from now, add it to checked_predictions
+	if prediction.minutes <= int(minutes_away) and prediction.direction.route.tag == route_tag:
+		x = 0
+		while x < 3:
 
-	x = 0
-	while x < 3:
-
-		for prediction in predictions.predictions:
-			if prediction.direction.route.tag == route_tag:
-				checked_predictions.append(prediction)
-				x += 1
+			for prediction in predictions.predictions:
+				if prediction.route.tag == route_tag:
+					checked_predictions.append(prediction)
+					x += 1
 	return checked_predictions
 
 def message(predictions):
@@ -71,7 +71,9 @@ def send_message(message, phone_number):
 
 
 def main():
-	check_for_texts()
+	while True:
+		check_for_texts()
+		time.sleep(10)
 
 if __name__ == "__main__":
 	main()
