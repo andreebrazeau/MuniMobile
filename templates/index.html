@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="container">
-      <div class="accordion" id="accordion">
+      <div class="accordion" id="accordion2">
+        <img src="../static/img/logo.png" width=100>
         <div class="accordion-group">
           <div class="accordion-heading">
             <p class="pull-right" id="selectedRoute"></p>
@@ -20,7 +21,9 @@
           </div>
           <div id="collapseOne" class="accordion-body collapse in">
             <div class="accordion-inner" id="routes">
-              Select Route.
+              <div class="progress progress-info progress-striped active">
+                <div class="bar" style="width: 100%;">Loading...</div>
+              </div>
             </div>
           </div>
         </div>
@@ -31,6 +34,9 @@
           </div>
           <div id="collapseTwo" class="accordion-body collapse">
             <div class="accordion-inner" id="directions">
+              <div class="progress progress-info progress-striped active" style="display: none;">
+                <div class="bar" style="width: 100%;">Loading...</div>
+              </div>
               <div class="alert">Select Route first.</div>
             </div>
           </div>
@@ -42,6 +48,9 @@
           </div>
           <div id="collapseThree" class="accordion-body collapse">
             <div class="accordion-inner" id="stops">
+              <div class="progress progress-info progress-striped active" style="display: none;">
+                <div class="bar" style="width: 100%;">Loading...</div>
+              </div>
               <div class="alert">Select Route and Direction first.</div>
             </div>
           </div>
@@ -52,18 +61,40 @@
           </div>
           <div id="collapseFour" class="accordion-body collapse">
             <div class="accordion-inner" id="predictions">
+              <div class="progress progress-info progress-striped active" style="display: none;">
+                <div class="bar" style="width: 100%;">Loading...</div>
+              </div>
               <div class="alert">Select Route and Direction and Stop first.</div>
               <div class="row">
                 <div id="livePredictions" class="span4"></div>
                 <div id="form" class="span4" style="display: none;">
+                  <h3>Notification setting</h3>
                   <div class="alert" id="formError" style="display: none;"></div>
                   <div class="alert alert-success" id="formSuccess" style="display: none;"></div>
                   <p>Phone: <input type="text" class="span2" placeholder="1234567890" id="phone">
-                  <span class="help-inline">10 digits without spaces or dash.</span>
+                  </p>
+                  <span class="help-block">10 digits without spaces or dashes.</span>
+                  <p>
+                  From:
+                  <input type="text" class="span2" placeholder="7:00" id="fromDate">
+                  <select class="span1">
+                    <option class="btn">am</option>
+                    <option class="btn">pm</option>
+                  </select>
                   </p>
                   <p>
-                  From: <input type="text" class="input-small" placeholder="7:00 am" id="fromDate" data-provide="typeahead" data-source="['0:00 am', '0:15 am', '0:30 am']">
-                  To: <input type="text" class="input-small" placeholder="8:00 am" id="toDate" data-provide="typeahead"></p>
+                  To:
+                  <input type="text" class="span2" placeholder="8:00 am" id="toDate" data-provide="typeahead">
+                  <select class="span1">
+                    <option class="btn">am</option>
+                    <option class="btn">pm</option>
+                  </select>
+                  </p>
+                  <span class="help-block">The timespan in which you plan to leave.</span>
+                  <p>
+                  Minutes Away: <input type="text" class="span1" id="minutesAway" > mins
+                  </p>
+                  <span class="help-block">How many minutes away you are from the bus stop.</span>
                   <p>
                   <input type="checkbox" id="chk1">Mon&nbsp;
                   <input type="checkbox" id="chk2">Tue&nbsp;
@@ -90,108 +121,22 @@
       var selectedDirectionTag;
       var selectedStopId;
       $(document).ready(function() {
-        /*
-        $.ajax(
+        $.ajax({
           type: "GET",
-          url: "/get_all_routes/",
-        }).done(getRoutessSuccess(data));
-        */
+          url: "/get_all_routes",
+          success: getRoutesSuccess
+        });
         $('#notifyButton').click(setNotification);
-        var data = [{'tag': 'F', 'title': 'F-Market & Wharves'},
-        {'tag': 'J', 'title': 'J-Church'},
-        {'tag': 'KT', 'title': 'KT-Ingleside/Third Street'},
-        {'tag': 'L', 'title': 'L-Taraval'},
-        {'tag': 'M', 'title': 'M-Ocean View'},
-        {'tag': 'N', 'title': 'N-Judah'},
-        {'tag': 'NX', 'title': 'NX-N Express'},
-        {'tag': '1', 'title': '1-California'},
-        {'tag': '1AX', 'title': '1AX-California A Express'},
-        {'tag': '1BX', 'title': '1BX-California B Express'},
-        {'tag': '2', 'title': '2-Clement'},
-        {'tag': '3', 'title': '3-Jackson'},
-        {'tag': '5', 'title': '5-Fulton'},
-        {'tag': '6', 'title': '6-Parnassus'},
-        {'tag': '8X', 'title': '8X-Bayshore Exp'},
-        {'tag': '8AX', 'title': '8AX-Bayshore A Exp'},
-        {'tag': '8BX', 'title': '8BX-Bayshore B Exp'},
-        {'tag': '9', 'title': '9-San Bruno'},
-        {'tag': '9L', 'title': '9L-San Bruno Limited'},
-        {'tag': '10', 'title': '10-Townsend'},
-        {'tag': '12', 'title': '12-Folsom/Pacific'},
-        {'tag': '14', 'title': '14-Mission'},
-        {'tag': '14L', 'title': '14L-Mission Limited'},
-        {'tag': '14X', 'title': '14X-Mission Express'},
-        {'tag': '16X', 'title': '16X-Noriega Express'},
-        {'tag': '17', 'title': '17-Park Merced'},
-        {'tag': '18', 'title': '18-46th Avenue'},
-        {'tag': '19', 'title': '19-Polk'},
-        {'tag': '21', 'title': '21-Hayes'},
-        {'tag': '22', 'title': '22-Fillmore'},
-        {'tag': '23', 'title': '23-Monterey'},
-        {'tag': '24', 'title': '24-Divisadero'},
-        {'tag': '27', 'title': '27-Bryant'},
-        {'tag': '28', 'title': '28-19th Avenue'},
-        {'tag': '28L', 'title': '28L-19th Avenue Limited'},
-        {'tag': '29', 'title': '29-Sunset'},
-        {'tag': '30', 'title': '30-Stockton'},
-        {'tag': '30X', 'title': '30X-Marina Express'},
-        {'tag': '31', 'title': '31-Balboa'},
-        {'tag': '31AX', 'title': '31AX-Balboa A Express'},
-        {'tag': '31BX', 'title': '31BX-Balboa B Express'},
-        {'tag': '33', 'title': '33-Stanyan'},
-        {'tag': '35', 'title': '35-Eureka'},
-        {'tag': '36', 'title': '36-Teresita'},
-        {'tag': '37', 'title': '37-Corbett'},
-        {'tag': '38', 'title': '38-Geary'},
-        {'tag': '38AX', 'title': '38AX-Geary A Express'},
-        {'tag': '38BX', 'title': '38BX-Geary B Express'},
-        {'tag': '38L', 'title': '38L-Geary Limited'},
-        {'tag': '39', 'title': '39-Coit'},
-        {'tag': '41', 'title': '41-Union'},
-        {'tag': '43', 'title': '43-Masonic'},
-        {'tag': '44', 'title': "44-O'Shaughnessy"},
-        {'tag': '45', 'title': '45-Union/Stockton'},
-        {'tag': '47', 'title': '47-Van Ness'},
-        {'tag': '48', 'title': '48-Quintara - 24th Street'},
-        {'tag': '49', 'title': '49-Mission-Van Ness'},
-        {'tag': '52', 'title': '52-Excelsior'},
-        {'tag': '54', 'title': '54-Felton'},
-        {'tag': '56', 'title': '56-Rutland'},
-        {'tag': '66', 'title': '66-Quintara'},
-        {'tag': '67', 'title': '67-Bernal Heights'},
-        {'tag': '71', 'title': '71-Haight-Noriega'},
-        {'tag': '71L', 'title': '71L-Haight-Noriega Limited'},
-        {'tag': '76', 'title': '76-Marin Headlands'},
-        {'tag': '80X', 'title': '80X-Gateway Express'},
-        {'tag': '81X', 'title': '81X-Caltrain Express'},
-        {'tag': '82X', 'title': '82X-Levi Plaza Express'},
-        {'tag': '83X', 'title': '83X-Caltrain'},
-        {'tag': '88', 'title': '88-B.A.R.T. Shuttle'},
-        {'tag': '90', 'title': '90-San Bruno Owl'},
-        {'tag': '91', 'title': '91-Owl'},
-        {'tag': '108', 'title': '108-Treasure Island'},
-        {'tag': 'K OWL', 'title': 'K-Owl'},
-        {'tag': 'L OWL', 'title': 'L-Owl'},
-        {'tag': 'M OWL', 'title': 'M-Owl'},
-        {'tag': 'N OWL', 'title': 'N-Owl'},
-        {'tag': 'T OWL', 'title': 'T-Owl'},
-        {'tag': '59', 'title': 'Powell/Mason Cable Car'},
-        {'tag': '60', 'title': 'Powell/Hyde Cable Car'},
-        {'tag': '61', 'title': 'California Cable Car'}];
-        getRoutessSuccess(data);
       });
 
-      function getRoutessSuccess(data) {
-        var route_str = '<div class="row">';
+      function getRoutesSuccess(data) {
+        var route_str = '<div class="row"><div class="span2">';
         for (var i=0; i < data.length; i++) {
-          if (i === 0 || (i % 22) === 0) {
-            route_str += '<div class="span2">';
+          if ((i % 22) === 0) {
+            route_str += '</div><div class="span2">';
           }
           var str = '<p class="route" data-routetag="' + data[i].tag + '">' + data[i].title + '</p>';
           route_str += str;
-          if ((i % 22) === 21) {
-            route_str += '</div>';
-          }
         }
         route_str += '</div>'
         $('#routes').html(route_str);
@@ -209,17 +154,51 @@
           resetPrediction();
           $('#collapseOne').collapse('hide');
           $('#collapseTwo').collapse('show');
-          /*
-          $.ajax(
+          $('#directions > div.progress').show();
+          $('#directions > div.alert').hide();
+          $.ajax({
             type: "POST",
-            url: "/get_directions_of_route/",
-            data: { route_tag: selectedRouteTag }
-          }).done(getDirectionsSuccess(data));
-          */
-          data = [{tag: '111', title: 'INBOUND'}, {tag: '222', title: 'OUTBOUND'}]
-          getDirectionsSuccess(data);
+            url: "/get_directions_of_route",
+            data: { route_tag: selectedRouteTag },
+            beforeSend: beforeSendAjax
+          }).done(getDirectionsSuccess);
         });
       }
+
+      /* For CSRF, https://docs.djangoproject.com/en/1.4/ref/contrib/csrf/#ajax */
+      function beforeSendAjax(xhr, settings) {
+        if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+      }
+
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+           }
+         }
+        }
+        return cookieValue;
+      }
+      function sameOrigin(url) {
+        var host = document.location.host;
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+          (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+          !(/^(\/\/|http:|https:).*/.test(url));
+      }
+      function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
 
       function setNotification() {
         var errorMsg = '';
@@ -237,6 +216,10 @@
         if (!pattern.test(toDate)) {
           errorMsg += 'To should be HH:MM format.<br>';
         }
+        var minutesAway = $('#minutesAway').val();
+        if (isNaN(Number(minutesAway))) {
+          errorMsg += 'Minutes Away should be Number.<br>';
+        }
         var checkedList = $('input[type=checkbox]:checked');
         if (checkedList.length === 0) {
           errorMsg += 'You must select at least one day.<br>';
@@ -253,15 +236,12 @@
           $('#formError').html(errorMsg);
           $('#formError').show();
         } else {
-          /*
-          $.ajax(
+          $.ajax({
             type: "POST",
-            url: "/set_notification/",
-            date: { phone_number: phone, stop_id: selectedStopId, route_tag: selectedRouteTag, start_time: fromDate, finish_time: toDate, days: days }
-          }).done(notificationSetSuccess(data));
-          */
-          var data = { message: 'Success!' };
-          notificationSetSuccess(data);
+            url: "/set_notification",
+            data: { phone_number: phone, stop_id: selectedStopId, route_tag: selectedRouteTag, start_time: fromDate, finish_time: toDate, days: days, minutes_away: minutesAway, direction_tag: selectedDirectionTag },
+            beforeSend: beforeSendAjax
+          }).done(notificationSetSuccess);
         }
       }
 
@@ -303,7 +283,7 @@
           directions_str += str;
         }
         $('#directions').append(directions_str);
-        $('#directions > div.alert').hide();
+        $('#directions > div.progress').hide();
         $('p.direction').mouseover(function() {
           $(this).addClass('mouseon');
         }).mouseout(function() {
@@ -317,26 +297,29 @@
           selectedDirectionTag = $(this).attr('data-directiontag');
           $('#collapseTwo').collapse('hide');
           $('#collapseThree').collapse('show');
-          /*
-          $.ajax(
+          $('#stops > div.progress').show();
+          $('#stops > div.alert').hide();
+          $.ajax({
             type: "POST",
-            url: "/get_stops/",
-            data: { route_tag: selectedRouteTag, direction_tag: selectedDirectionTag }
-          }).done(getStopsSuccess(data));
-          */
-          var data = [{stop_id: '111', title: 'Columbus Ave & Union St'}, {stop_id: '222', title: 'North Point St & Larkin St'}];
-          getStopsSuccess(data);
+            url: "/get_stops",
+            data: { route_tag: selectedRouteTag, direction_tag: selectedDirectionTag },
+            beforeSend: beforeSendAjax
+          }).done(getStopsSuccess);
         });
       }
 
       function getStopsSuccess(data) {
-        var stops_str = '';
+        var stops_str = '<div class="row"><div class="span4">';
         for (var i = 0; i < data.length; i++) {
+          if (i  === Math.round(data.length/2)) {
+            stops_str += '</div><div class="span4">';
+          }
           var str = '<p class="stop" data-stopid="' + data[i].stop_id + '">' + data[i].title + '</p>';
           stops_str += str;
         }
+        stops_str += '</div>'
         $('#stops').append(stops_str);
-        $('#stops > div.alert').hide();
+        $('#stops > div.progress').hide();
         $('p.stop').mouseover(function() {
           $(this).addClass('mouseon');
         }).mouseout(function() {
@@ -349,28 +332,53 @@
           resetPrediction();
           $('#collapseThree').collapse('hide');
           $('#collapseFour').collapse('show');
-          /*
-          $.ajax(
+          $('#predictions > div.progress').show();
+          $('#predictions > div.alert').hide();
+          $.ajax({
             type: "POST",
-            url: "/get_predictions_for_stop/",
-            data: { stop_id: selectedStopId, route_tag: selectedRouteTag }
-          }).done(getPredictionsSuccess(data));
-          */
-          var data = {predictions: [3, 10, 25]};
-          getPredictionsSuccess(data);
+            url: "/get_predictions_for_stop",
+            data: { stop_id: selectedStopId, route_tag: selectedRouteTag },
+            beforeSend: beforeSendAjax
+          }).done(getPredictionsSuccess);
         });
       }
 
       function getPredictionsSuccess(data) {
         var predictions_str = '<h3>Selected vehicles are arriving in...</h3>';
         var predictions = data.predictions;
+        if (predictions.length == 0) {
+          predictions_str += '<p>No current prediction</p>';
+        }
         for (var i=0; i<predictions.length; i++) {
           var pre = predictions[i];
-          predictions_str = predictions_str + '<p>' + pre + ' mins</p>';
+          predictions_str = predictions_str + '<h1>' + pre + ' <small>minutes</small></h1>';
         }
-        $('#livePredictions').append(predictions_str);
-        $('#predictions > div.alert').hide();
+        $('#livePredictions').html(predictions_str);
+        $('#predictions > div.progress').hide();
         $('#form').show();
+        setInterval("updatePredictions()", 30000);
+      }
+
+      function updatePredictions() {
+        $.ajax({
+          type: "POST",
+          url: "/get_predictions_for_stop",
+          data: { stop_id: selectedStopId, route_tag: selectedRouteTag },
+          beforeSend: beforeSendAjax
+        }).done(getPredictionsUpdateSuccess);
+      }
+
+      function getPredictionsUpdateSuccess(data) {
+        var predictions_str = '<h3>Selected vehicles are arriving in...</h3>';
+        var predictions = data.predictions;
+        if (predictions.length == 0) {
+          predictions_str += '<p>No current prediction</p>';
+        }
+        for (var i=0; i<predictions.length; i++) {
+          var pre = predictions[i];
+          predictions_str = predictions_str + '<h1>' + pre + ' <small>minutes</small></h1>';
+        }
+        $('#livePredictions').html(predictions_str);
       }
     </script>
   </body>

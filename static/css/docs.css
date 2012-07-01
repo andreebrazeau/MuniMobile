@@ -1,11 +1,10 @@
 body {
-    margin-top: 20px;
     background-image: url("../img/bg_stripe.png");
 }
 
 .accordion {
     width: 650px;
-    margin: 3em auto;
+    margin: 0.5em auto;
 }
 .accordion-inner {
     border-top: 0px;
@@ -16,7 +15,7 @@ body {
     overflow: auto;
 }
 #stops {
-    height: 300px;
+    max-height: 300px;
     overflow: auto;
 }
 .accordion-heading .accordion-toggle,
@@ -54,4 +53,18 @@ body {
 
 .accordion-heading {
     background-color: #049CDB;
+}
+
+#livePredictions.span4 h1 {
+    text-align: center;
+}
+
+#livePredictions.span4 h1 small {
+    font-size: 20px;
+    font-weight: inherit;
+    color: inherit;
+}
+
+#livePredictions h3, #form h3 {
+    padding-bottom: 10px;
 }

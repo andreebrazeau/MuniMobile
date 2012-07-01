@@ -22,28 +22,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MuniMobile_app/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="3" selection-start="1150" selection-end="1150" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuniMobile/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="49" selection-start="4637" selection-end="4637" vertical-scroll-proportion="0.0">
+            <state line="126" column="28" selection-start="4746" selection-end="4746" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuniMobile/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="71" selection-start="382" selection-end="382" vertical-scroll-proportion="0.41353384">
+            <state line="11" column="41" selection-start="356" selection-end="356" vertical-scroll-proportion="-6.6">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prediction.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="10" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.68010074">
               <folding />
             </state>
           </provider>
@@ -52,18 +52,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuniMobile_app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="15" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="check_predictions.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/check_predictions.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="42" selection-start="202" selection-end="202" vertical-scroll-proportion="-4.5652175">
+            <state line="71" column="14" selection-start="2222" selection-end="2222" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -84,8 +73,10 @@
         <option value="$PROJECT_DIR$/templates/prediction.html" />
         <option value="$PROJECT_DIR$/MuniMobile_app/models.py" />
         <option value="$PROJECT_DIR$/templates/check_predictions.html" />
-        <option value="$PROJECT_DIR$/MuniMobile/urls.py" />
         <option value="$PROJECT_DIR$/MuniMobile_app/views.py" />
+        <option value="$PROJECT_DIR$/MuniMobile/urls.py" />
+        <option value="$PROJECT_DIR$/MuniMobile_app/json_data.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/MuniMobile_app/prediction.py" />
       </list>
     </option>
@@ -185,12 +176,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="preferences.sourceCode.General" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="preferences.sourceCode.General" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="DefaultHtmlFileTemplate" value="Html" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -217,25 +208,6 @@
       <option name="MULTIPROCESS" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <module name="MuniMobile" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -255,6 +227,25 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <module name="MuniMobile" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -335,7 +326,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22882289" sideWeight="0.15111111" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22882289" sideWeight="0.8333333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26732674" sideWeight="0.8333333" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -407,11 +398,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../scratch_paper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="1356" selection-end="1356" vertical-scroll-proportion="0.90604025">
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="27" column="0" selection-start="1356" selection-end="1356" vertical-scroll-proportion="0.90604025" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
@@ -421,60 +408,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile_app/nextbus.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/prediction.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="36" selection-start="43" selection-end="43" vertical-scroll-proportion="0.039893616">
+        <state line="1" column="36" selection-start="43" selection-end="43" vertical-scroll-proportion="0.039893616" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MuniMobile/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="28" selection-start="4746" selection-end="4746" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../bla.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="16" selection-end="255" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MuniMobile_app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="14" selection-start="2222" selection-end="2222" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/check_predictions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="42" selection-start="202" selection-end="202" vertical-scroll-proportion="-4.5652175">
+        <state line="7" column="42" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MuniMobile_app/views.py">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="15" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.69948184">
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MuniMobile/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="49" selection-start="4637" selection-end="4637" vertical-scroll-proportion="0.0">
+        <state line="1" column="0" selection-start="12" selection-end="12" vertical-scroll-proportion="0.039893616">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MuniMobile_app/models.py">
+    <entry file="file://$PROJECT_DIR$/MuniMobile_app/json_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="3" selection-start="1150" selection-end="1150" vertical-scroll-proportion="0.0">
+        <state line="9" column="15" selection-start="283" selection-end="283" vertical-scroll-proportion="0.040106952">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="71" selection-start="382" selection-end="382" vertical-scroll-proportion="0.41353384">
+        <state line="11" column="41" selection-start="356" selection-end="356" vertical-scroll-proportion="-6.6">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="10" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.68010074">
           <folding />
         </state>
       </provider>

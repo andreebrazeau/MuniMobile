@@ -11,15 +11,16 @@ client = TwilioRestClient(account, token)
 
 
 def check_for_texts(): # get all users from the database
+    now = datetime.now()
 	# each user has: text_time, busline, direction, stop, phone_num
 	for user in models.user_form.objects.all():
 		route_tag = user.route_tag # whatever user's route tag is
 		stopID = user.stop_id # whatever user's stop ID is
-		text_time = user.start_time # whatever user's text time is. This is 1:36 pm
-		text_time = datetime.now()
+		start_time = user.start_time # whatever user's text time is.
+        finish_time = user.finish_time
+		#text_time = datetime.now()
 		minutes_away = user.minutes_away
-		print user.route_tag
-		if check_time(text_time,user.days):
+		if check_time(start_time,finish_time,user.days, now):
 			predictions = check_for_busses(stopID, route_tag, minutes_away)
 			if predictions:
 				if predictions[0].block == user.bus_tag:
@@ -30,14 +31,11 @@ def check_for_texts(): # get all users from the database
 				user.bus_tag = predictions[0].block
 				user.save()
 
-def check_time(text_time, text_days):
-
-	if datetime.now() > text_time and datetime.now() < text_time + timedelta(hours=1):
-		now = datetime.now()
+def check_time(start_time, finish_time, text_days, now):
+	if now > start_time and now < finish_time:
 		if str(now.isoweekday()) in text_days:
 			return True
 	else: 
-		print False
 		return False
 
 
@@ -66,8 +64,8 @@ def message(predictions):
 	return "The %s line going %s is arriving in %sminutes" %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
-	#message = client.sms.messages.create(to=phone_number, from_="+14155992671", body=message)
-	print message
+	message = client.sms.messages.create(to=phone_number, from_="+14155992671", body=message)
+	#print message
 
 
 def main():
