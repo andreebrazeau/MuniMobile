@@ -25,7 +25,7 @@
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuniMobile/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="28" selection-start="4746" selection-end="4746" vertical-scroll-proportion="0.0">
+            <state line="129" column="28" selection-start="4739" selection-end="4739" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -43,8 +43,10 @@
       <file leaf-file-name="prediction.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="10" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.68010074">
-              <folding />
+            <state line="28" column="54" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.15625">
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -418,7 +420,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="28" selection-start="4746" selection-end="4746" vertical-scroll-proportion="0.0" />
+        <state line="129" column="28" selection-start="4739" selection-end="4739" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../bla.py">
@@ -463,8 +467,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="10" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.68010074">
-          <folding />
+        <state line="28" column="54" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.15625">
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -12,37 +12,40 @@ client = TwilioRestClient(account, token)
 
 def check_for_texts(): # get all users from the database
     now = datetime.now()
-	# each user has: text_time, busline, direction, stop, phone_num
-	for user in models.user_form.objects.all():
-		route_tag = user.route_tag # whatever user's route tag is
-		stopID = user.stop_id # whatever user's stop ID is
-		start_time = user.start_time # whatever user's text time is.
+    # each user has: text_time, busline, direction, stop, phone_num
+    for user in models.user_form.objects.all():
+        route_tag = user.route_tag # whatever user's route tag is
+        stopID = user.stop_id # whatever user's stop ID is
+        start_time = user.start_time # whatever user's text time is.
         finish_time = user.finish_time
-		#text_time = datetime.now()
-		minutes_away = user.minutes_away
-		if check_time(start_time,finish_time,user.days, now):
-			predictions = check_for_busses(stopID, route_tag, minutes_away)
-			if predictions:
-				if predictions[0].block == user.bus_tag:
-					continue
-
-				else:
-					send_message(message(predictions), user.phone_number)
-				user.bus_tag = predictions[0].block
-				user.save()
+        minutes_away = user.minutes_away
+        text_days = user.days
+        if check_time(start_time,finish_time,text_days, now):
+            predictions = check_for_busses(stopID, route_tag, minutes_away)
+            if predictions:
+                if predictions[0].block == user.bus_tag:
+                    continue
+                else:
+                    send_message(message(predictions), user.phone_number)
+                user.bus_tag = predictions[0].block
+                user.save()
 
 def check_time(start_time, finish_time, text_days, now):
-	if now > start_time and now < finish_time:
-		if str(now.isoweekday()) in text_days:
-			return True
-	else: 
-		return False
+    start_str = datetime.strptime(str(now.year) + ":" +str(now.month) + ":" +str(now.day) + ":" + start_time, "%Y:%m:%d:%H:%M")
+    finish_str = datetime.strptime(str(now.year) + ":" +str(now.month) + ":" +str(now.day) + ":" + finish_time, "%Y:%m:%d:%H:%M")
+    if now > start_str and now < finish_str:
+        if str(now.weekday()) in text_days:
+            return True
+        else : 
+        	return False
+    else:
+        return False
 
 
 def check_for_busses(stopID, route_tag, minutes_away):
 	predictions = nextbus.get_predictions_for_stop('sf-muni', stopID)
 	checked_predictions = []
-	
+
 	# if prediction is within fifteen minutes from now, add it to checked_predictions
 
 	x = 0
@@ -56,11 +59,12 @@ def check_for_busses(stopID, route_tag, minutes_away):
 
 def message(predictions):
 	string_predictions = ""
-	for each in predictions: 
+	for each in predictions:
 		string_predictions += str(each.minutes) + ", "
 
 	title = predictions[0].direction.route.title
-	direction = predictions[0].direction.title	
+	direction = predictions[0].direction.title
+	print string_predictions
 	return "The %s line going %s is arriving in %sminutes" %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
@@ -76,7 +80,9 @@ if __name__ == "__main__":
 
 '''
 import MuniMobile_app.prediction
+import datetime
 MuniMobile_app.prediction.main()
+MuniMobile_app.prediction.check_time('7:00', '11:00', [1,2,3,4,5,6,7], datetime.datetime.now())
 '''
 
 

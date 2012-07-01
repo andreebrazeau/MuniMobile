@@ -77,17 +77,17 @@
                   <p>
                   From:
                   <input type="text" class="span2" placeholder="7:00" id="fromDate">
-                  <select class="span1">
-                    <option class="btn">am</option>
-                    <option class="btn">pm</option>
+                  <select class="span1" id="fromDateAmPm">
+                    <option value="0">am</option>
+                    <option value="1">pm</option>
                   </select>
                   </p>
                   <p>
                   To:
-                  <input type="text" class="span2" placeholder="8:00 am" id="toDate" data-provide="typeahead">
-                  <select class="span1">
-                    <option class="btn">am</option>
-                    <option class="btn">pm</option>
+                  <input type="text" class="span2" placeholder="8:00" id="toDate" data-provide="typeahead">
+                  <select class="span1" id="toDateAmPm">
+                    <option value="0">am</option>
+                    <option value="1">pm</option>
                   </select>
                   </p>
                   <span class="help-block">The timespan in which you plan to leave.</span>
@@ -121,15 +121,20 @@
       var selectedDirectionTag;
       var selectedStopId;
       $(document).ready(function() {
-        $.ajax({
-          type: "GET",
-          url: "/get_all_routes",
-          success: getRoutesSuccess
-        });
+        var data = JSON.parse(localStorage.getItem('allRoutes'));
+        if (data != null) {
+          getRoutesSuccess(data);
+        } else {
+          $.ajax({
+            type: "GET",
+            url: "/get_all_routes"
+          }).done(getRoutesSuccess);
+        }
         $('#notifyButton').click(setNotification);
       });
 
       function getRoutesSuccess(data) {
+        localStorage.setItem('allRoutes', JSON.stringify(data));
         var route_str = '<div class="row"><div class="span2">';
         for (var i=0; i < data.length; i++) {
           if ((i % 22) === 0) {
@@ -200,6 +205,30 @@
       }
 
 
+      function formatDate(pattern, sourceDate, isPm) {
+        var matchResult = sourceDate.match(pattern);
+        var resultDate = '';
+        var hour = Number(matchResult[1]);
+        var min = Number(matchResult[2]);
+        if (isPm === '1') {
+          hour += 12;
+          if (hour % 12 == 0) {
+            hour -= 12;
+          }
+        }
+        if (hour < 10) {
+          resultDate = '0' + hour + ':';
+        } else {
+          resultDate = hour + ':';
+        }
+        if (min < 10) {
+          resultDate = resultDate + '0' + min;
+        } else {
+          resultDate = resultDate + min;
+        }
+        return resultDate;
+      }
+
       function setNotification() {
         var errorMsg = '';
         var phone = $('#phone').val();
@@ -208,14 +237,16 @@
           errorMsg += 'Phone number should be 10 digits.<br>';
         }
         var fromDate = $('#fromDate').val();
-        pattern = /^\d{1,2}:\d{1,2}$/;
+        pattern = /^(0?[1-9]|1[0-2]):(0?[0-9]|[1-5][0-9])$/;
         if (!pattern.test(fromDate)) {
-          errorMsg += 'From should be HH:MM format.<br>';
+          errorMsg += 'From should be HH:MM(AM/PM) format.<br>';
         }
+        fromDate = formatDate(pattern, fromDate, $('#fromDateAmPm').val());
         var toDate = $('#toDate').val();
         if (!pattern.test(toDate)) {
-          errorMsg += 'To should be HH:MM format.<br>';
+          errorMsg += 'To should be HH:MM(AM/PM) format.<br>';
         }
+        toDate = formatDate(pattern, toDate, $('#toDateAmPm').val());
         var minutesAway = $('#minutesAway').val();
         if (isNaN(Number(minutesAway))) {
           errorMsg += 'Minutes Away should be Number.<br>';
@@ -224,12 +255,14 @@
         if (checkedList.length === 0) {
           errorMsg += 'You must select at least one day.<br>';
         } else {
-          var days = [];
+          var days = '';
           for (var i=0; i<checkedList.length; i++) {
-            days.push(Number(checkedList[i].id.substring(3)));
+            days += checkedList[i].id.substring(3);
           }
         }
 
+        console.log(fromDate);
+        console.log(toDate);
         if (errorMsg.length > 0) {
           $('#formSuccess').html('');
           $('#formSuccess').hide();
