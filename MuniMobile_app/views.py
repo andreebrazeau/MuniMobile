@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from MuniMobile_app.models import user_form
 from MuniMobile_app.prediction import *
 from json_data import *
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json, models
 
 def index(request):
@@ -21,13 +22,14 @@ def get_all_routes(request):
 	data = json.dumps(result)
 	return json_response(data)
 
+@csrf_exempt
 def get_directions_of_route(request):
 	route_tag = request.POST.get('route_tag', False)
-	print route_tag
 	result = json_get_all_directions(route_tag)
 	data = json.dumps(result)
 	return json_response(data)
 
+@csrf_exempt
 def get_stops(request):
 	route_tag = request.POST.get('route_tag', False)
 	direction_tag = request.POST.get('direction_tag', False)
@@ -35,6 +37,7 @@ def get_stops(request):
 	data = json.dumps(result)
 	return json_response(data)
 
+@csrf_exempt
 def get_predictions_for_stop(request):
 	stop_id = request.POST.get('stop_id', False)
 	route_tag = request.POST.get('route_tag', False)
@@ -42,6 +45,7 @@ def get_predictions_for_stop(request):
 	data = json.dumps(result)
 	return json_response(data)
 
+@csrf_exempt
 def set_notification(request):
 	phone_number = request.POST.get('phone_number', False)
 	stop_id = request.POST.get('stop_id', False)
