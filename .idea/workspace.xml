@@ -43,7 +43,7 @@
       <file leaf-file-name="prediction.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="54" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.15625">
+            <state line="30" column="27" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.15625">
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -54,7 +54,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuniMobile_app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="14" selection-start="2222" selection-end="2222" vertical-scroll-proportion="0.0">
+            <state line="69" column="14" selection-start="2184" selection-end="2184" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -432,7 +432,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile_app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="14" selection-start="2222" selection-end="2222" vertical-scroll-proportion="0.0">
+        <state line="69" column="14" selection-start="2184" selection-end="2184" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -467,7 +467,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuniMobile_app/prediction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="54" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.15625">
+        <state line="30" column="27" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.15625">
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>

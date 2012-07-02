@@ -11,7 +11,6 @@ def json_get_all_routes():
 
 def json_get_all_directions(route_tag):
     route = nextbus.get_route_config('sf-muni',route_tag)
-    print route_tag
     directions = route.directions
     dir = []
     for each in directions:
@@ -37,7 +36,6 @@ def json_get_all_stops(route_tag, direction_tag):
         if each.tag == direction_tag:
             stops = each.stops
             for stop in stops:
-                print stop
                 stop_dict = {}
                 stop_dict['tag'] = stop.tag
                 stop_dict['title'] = stop.title

@@ -64,7 +64,6 @@ def message(predictions):
 
 	title = predictions[0].direction.route.title
 	direction = predictions[0].direction.title
-	print string_predictions
 	return "The %s line going %s is arriving in %sminutes" %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
