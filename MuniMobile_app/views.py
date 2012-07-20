@@ -73,7 +73,7 @@ def set_notification(request):
 def sms(request):
     body = request.GET.get('Body', None)
     from_number = request.GET.get('From', None)
-    if 'muni' in string.lower(body):
+    if body and 'muni' in string.lower(body):
         for user in user_form.objects.filter(phone_number=from_number[2:]):
             user.activated = False
             user.save()
