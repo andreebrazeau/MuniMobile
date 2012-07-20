@@ -161,6 +161,7 @@
       var selectedRouteTag;
       var selectedDirectionTag;
       var selectedStopId;
+      var intervalId;
       $(document).ready(function() {
         var data = JSON.parse(localStorage.getItem('allRoutes'));
         if (data != null) {
@@ -348,6 +349,7 @@
         $('#formSuccess').html('');
         $('#formError').hide();
         $('#formSuccess').hide();
+        clearInterval(intervalId);
       }
 
       function getDirectionsSuccess(data) {
@@ -430,7 +432,7 @@
         $('#livePredictions').html(predictions_str);
         $('#predictions > div.progress').hide();
         $('#form').show();
-        setInterval("updatePredictions()", 30000);
+        intervalId = setInterval("updatePredictions()", 30000);
       }
 
       function updatePredictions() {
