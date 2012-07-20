@@ -1,6 +1,6 @@
 # Django settings for MuniMobile project.
 import os 
-import dj_database_url
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
