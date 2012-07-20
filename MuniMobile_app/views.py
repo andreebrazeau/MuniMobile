@@ -74,7 +74,7 @@ def sms(request):
     body = request.GET.get('Body', None)
     from_number = request.GET.get('From', None)
     if 'muni' in string.lower(body):
-        for user in models.user_form.filter(phone_number=from_number):
+        for user in user_form.objects.filter(phone_number=from_number[2:]):
             user.activated = False
             user.save()
         resp = twilio.twiml.Response()
