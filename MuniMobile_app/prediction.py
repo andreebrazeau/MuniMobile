@@ -13,7 +13,7 @@ client = TwilioRestClient(account, token)
 def check_for_texts(): # get all users from the database
     now = datetime.now()
     # each user has: text_time, busline, direction, stop, phone_num
-    for user in models.user_form.objects.all():
+    for user in models.user_form.objects.filter(activated=True):
         route_tag = user.route_tag # whatever user's route tag is
         stopID = user.stop_id # whatever user's stop ID is
         start_time = user.start_time # whatever user's text time is.

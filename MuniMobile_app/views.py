@@ -77,12 +77,13 @@ def sms(request):
         for user in user_form.objects.filter(phone_number=from_number[2:]):
             user.activated = False
             user.save()
-        resp = twilio.twiml.Response()
-        resp.sms("MuniMobile, we've removed all your scheduled SMS request. \
-        	To schedule more request, visite our website.")
-        print resp
-        print str(resp)
-        return str(resp)
+        # response doesn't work now, so use send_message() instead of this
+        # resp = twilio.twiml.Response()
+        # resp.sms("MuniMobile, we've removed all your scheduled SMS request. \
+        #   To schedule more request, visite our website.")
+        message = "MuniMobile, we've removed all your scheduled SMS request. To schedule more request, visite our website."
+        send_message(message, from_number)
+    return None
 
 
 def json_response(data, code=200, mimetype='application/json'):
