@@ -73,7 +73,7 @@ def set_notification(request):
 def sms(request):
     body = request.GET.get('Body', None)
     from_number = request.GET.get('From', None)
-    if 'stop' in string.lower(body):
+    if 'muni' in string.lower(body):
         for user in models.user_form.filter(phone_number=from_number):
             user.activated = False
             user.save()

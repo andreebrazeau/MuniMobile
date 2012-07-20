@@ -65,7 +65,7 @@ def message(predictions):
 	title = predictions[0].direction.route.title
 	direction = predictions[0].direction.title
 	return "The %s line going %s is arriving in %sminutes, to cancel \
-    your schedule, reply 'stop'." %(title, direction, string_predictions)
+    your schedule, reply 'muni'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
 	message = client.sms.messages.create(to=phone_number, from_="+14155992671", body=message)
