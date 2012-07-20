@@ -1,4 +1,4 @@
-.pyc
+*.pyc
 .gitingnore
 venv
 MuniMobile_app/twilio_tokens.py
