@@ -80,7 +80,9 @@ def sms(request):
         resp = twilio.twiml.Response()
         resp.sms("MuniMobile, we've removed all your scheduled SMS request. \
         	To schedule more request, visite our website.")
-    return str(resp)
+        print resp
+        print str(resp)
+        return str(resp)
 
 
 def json_response(data, code=200, mimetype='application/json'):
