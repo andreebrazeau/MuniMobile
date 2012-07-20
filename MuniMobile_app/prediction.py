@@ -6,7 +6,7 @@ import pytz, twilio_token
 os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
 account = twilio_token.account
-token = twilio_token.account
+token = twilio_token.token
 client = TwilioRestClient(account, token)
 
 
@@ -34,7 +34,7 @@ def check_time(start_time, finish_time, text_days, now):
     start_str = datetime.strptime(str(now.year) + ":" +str(now.month) + ":" +str(now.day) + ":" + start_time, "%Y:%m:%d:%H:%M")
     finish_str = datetime.strptime(str(now.year) + ":" +str(now.month) + ":" +str(now.day) + ":" + finish_time, "%Y:%m:%d:%H:%M")
     if now > start_str and now < finish_str:
-        if str(now.weekday()) in text_days:
+        if str(now.isoweekday()) in text_days:
             return True
         else : 
         	return False
@@ -68,7 +68,7 @@ def message(predictions):
     your schedule, reply 'muni'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
-	message = client.sms.messages.create(to=phone_number, from_="+14155992671", body=message)
+	message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
 	#print message
 
 
