@@ -1,12 +1,12 @@
-import nextbus, models, os, time
+import nextbus, models, os, time, string
 from twilio.rest import TwilioRestClient
 from datetime import datetime, timedelta
 from pytz import timezone
-import pytz
+import pytz, twilio_token
 os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
-account = "ACd650b87a38605c19fe98bed15d6997b9"
-token = "e65c7326a7a1fa7f048070fd6f862b98"
+account = twilio_token.account
+token = twilio_token.account
 client = TwilioRestClient(account, token)
 
 
@@ -64,7 +64,8 @@ def message(predictions):
 
 	title = predictions[0].direction.route.title
 	direction = predictions[0].direction.title
-	return "The %s line going %s is arriving in %sminutes" %(title, direction, string_predictions)
+	return "The %s line going %s is arriving in %sminutes, to cancel \
+    your schedule, reply 'stop'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
 	message = client.sms.messages.create(to=phone_number, from_="+14155992671", body=message)

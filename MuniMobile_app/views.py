@@ -4,7 +4,7 @@ from MuniMobile_app.models import user_form
 from MuniMobile_app.prediction import *
 from json_data import *
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-import json, models
+import json, models, string, twilio.twiml
 
 def index(request):
 	return render_to_response('index.html')
@@ -69,6 +69,19 @@ def set_notification(request):
 	result = { 'message': 'Success!' }
 	data = json.dumps(result)
 	return json_response(data)
+
+def sms(request):
+    body = request.GET.get('Body', None)
+    from_number = request.GET.get('From', None)
+    if 'stop' in string.lower(body):
+        for user in models.user_form.filter(phone_number=from_number):
+            user.activated = False
+            user.save()
+        resp = twilio.twiml.Response()
+        resp.sms("MuniMobile, we've removed all your scheduled SMS request. \
+        	To schedule more request, visite our website.")
+    return str(resp)
+
 
 def json_response(data, code=200, mimetype='application/json'):
     resp = HttpResponse(data, mimetype)

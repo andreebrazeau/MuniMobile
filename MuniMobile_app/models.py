@@ -12,6 +12,7 @@ class user_form(models.Model):
     days = models.CharField (max_length = 10)
     minutes_away = models.CharField (max_length = 5, default = "0")
     bus_tag = models.CharField (max_length = 10, default='None')
+    activated = models.BooleanField(default = True)
 
     def __unicode__(self):
         return self.phone_number
