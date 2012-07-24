@@ -2,3 +2,4 @@
 venv
 MuniMobile_app/twilio_token.py
 email.txt
+start.sh
