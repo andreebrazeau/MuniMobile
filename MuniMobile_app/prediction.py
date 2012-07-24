@@ -5,8 +5,8 @@ from pytz import timezone
 import pytz, twilio_token
 os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
-account = twilio_token.account
-token = twilio_token.token
+account = os.environ['twilio_account']
+token = os.environ['twilio_token']
 client = TwilioRestClient(account, token)
 
 
