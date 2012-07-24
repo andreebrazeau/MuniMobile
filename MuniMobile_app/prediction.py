@@ -2,7 +2,7 @@ import nextbus, models, os, time, string
 from twilio.rest import TwilioRestClient
 from datetime import datetime, timedelta
 from pytz import timezone
-import pytz, twilio_token
+import pytz
 os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
 account = os.environ['twilio_account']
