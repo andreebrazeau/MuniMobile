@@ -62,7 +62,7 @@ def message(predictions):
     return "The %s line going %s is arriving in %sminutes, to cancel your schedule, reply 'muni'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
-    #message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
+    message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
     print message
 
 
