@@ -32,10 +32,16 @@ body {
     .accordion {
         width: 506px;
     }
+    .span2 {
+        width: 100px;
+    }
 }
 @media (min-width: 1200px) {
     .accordion {
         width: 800px;
+    }
+    .span2 {
+        width: 165px;
     }
 }
 
@@ -55,6 +61,10 @@ body {
     background-color: #049CDB;
 }
 
+.span2 {
+    width: 135px;
+}
+
 #livePredictions.span4 h1 {
     text-align: center;
 }
@@ -67,4 +77,21 @@ body {
 
 #livePredictions h3, #form h3 {
     padding-bottom: 10px;
+}
+
+.help-block {
+    margin-bottom: 15px;
+    margin-left: 10px;
+    color: #777;
+}
+
+footer {
+    margin: 30px 0 30px 0;
+    text-align: center;
+}
+
+.socialbutton {
+    display: inline-block;
+    vertical-align: bottom;
+    height: 21px;
 }
