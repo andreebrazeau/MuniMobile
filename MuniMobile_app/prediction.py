@@ -19,11 +19,12 @@ def check_for_texts(): # get all users from the database
         start_time = user.start_time # whatever user's text time is.
         finish_time = user.finish_time
         minutes_away = user.minutes_away
+        print minutes_away 
         text_days = user.days
         if check_time(start_time,finish_time,text_days, now):
             predictions = check_for_busses(stopID, route_tag, minutes_away)
             if predictions:
-                if predictions[0].block == user.bus_tag:
+                if predictions[0].block == user.bus_tag and predictions[0].minutes<=minutes_away:
                     continue
                 else:
                     send_message(message(predictions), user.phone_number)
@@ -37,46 +38,39 @@ def check_time(start_time, finish_time, text_days, now):
         if str(now.isoweekday()) in text_days:
             return True
         else : 
-        	return False
+            return False
     else:
         return False
 
 
 def check_for_busses(stopID, route_tag, minutes_away):
-	predictions = nextbus.get_predictions_for_stop('sf-muni', stopID)
-	checked_predictions = []
-
-	# if prediction is within fifteen minutes from now, add it to checked_predictions
-
-	x = 0
-	while x < 3:
-
-		for prediction in predictions.predictions:
-			if prediction.direction.route.tag == route_tag:
-				checked_predictions.append(prediction)
-				x += 1
-	return checked_predictions
+    predictions = nextbus.get_predictions_for_stop('sf-muni', stopID)
+    checked_predictions = []
+    x = 0
+    while x < 3:
+        for prediction in predictions.predictions:
+            if prediction.direction.route.tag == route_tag:
+                checked_predictions.append(prediction)
+                x += 1
+    return checked_predictions
 
 def message(predictions):
-	string_predictions = ""
-	for each in predictions:
-		string_predictions += str(each.minutes) + ", "
-
-	title = predictions[0].direction.route.title
-	direction = predictions[0].direction.title
-	return "The %s line going %s is arriving in %sminutes, to cancel \
-    your schedule, reply 'muni'." %(title, direction, string_predictions)
+    list_pred = [str(each.minutes) for each in predictions]
+    string_predictions = ', '.join(list_pred)
+    title = predictions[0].direction.route.title
+    direction = predictions[0].direction.title
+    return "The %s line going %s is arriving in %sminutes, to cancel your schedule, reply 'muni'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
-	message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
-	#print message
+    #message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
+    print message
 
 
 def main():
-	check_for_texts()
+    check_for_texts()
 
 if __name__ == "__main__":
-	main()
+    main()
 
 '''
 import MuniMobile_app.prediction
