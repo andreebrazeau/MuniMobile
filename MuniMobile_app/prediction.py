@@ -20,8 +20,6 @@ def check_for_texts(): # get all users from the database
         start_time = user.start_time # whatever user's text time is.
         finish_time = user.finish_time
         minutes_away = user.minutes_away
-        print minutes_away 
-        text_days = user.days
         if check_time(start_time,finish_time,text_days, now):
             predictions = check_for_busses(stopID, route_tag, minutes_away)
             if predictions:
@@ -63,9 +61,8 @@ def message(predictions):
     return "The %s line going %s is arriving in %sminutes, to cancel your schedule, reply 'muni'." %(title, direction, string_predictions)
 
 def send_message(message, phone_number):
-    message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
     print message
-
+    message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
 
 def main():
     check_for_texts()
