@@ -7,6 +7,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
 account = os.environ['twilio_account']
 token = os.environ['twilio_token']
+print account, token
 client = TwilioRestClient(account, token)
 
 
