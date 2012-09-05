@@ -1,6 +1,6 @@
 from django.db import models
 
-class user_form(models.Model):
+class Notification(models.Model):
     # how do we want to define a user_form post?
     phone_number = models.CharField (max_length = 10)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -16,6 +16,10 @@ class user_form(models.Model):
 
     def __unicode__(self):
         return self.phone_number
+
+    def index():
+        active_notif = Notification.objects.filter(activated = True)
+        return active_notif
 
 '''
 from MuniMobile_app.models import user_form

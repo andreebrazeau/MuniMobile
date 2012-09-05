@@ -1,16 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from MuniMobile_app.models import user_form
+from MuniMobile_app.models import Notification
 from MuniMobile_app.prediction import *
 from json_data import *
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json, models, string, twilio.twiml
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 def index(request):
 	return render_to_response('index.html')
 
 def prediction(request):
-	user = user_form.objects.all()
+	user = Notification.objects.all()
 	return render_to_response('prediction.html', {'user': user})
 
 def check_predictions(request):
@@ -56,7 +61,7 @@ def set_notification(request):
 	minutes_away = request.POST.get('minutes_away', False)
 	direction_tag = request.POST.get('direction_tag', False)
 
-	new_user = user_form(
+	new_user = Notification(
 		phone_number = phone_number,
 	    route_tag = route_tag,
 	    stop_id = stop_id,
@@ -65,8 +70,12 @@ def set_notification(request):
 	    days = days,
 	    minutes_away = minutes_away
 	)
-	new_user.save()
-	result = { 'message': 'Success!' }
+	try:
+		new_user.save()
+		result = { 'message': 'Success!' }
+		print result
+	except: 
+		result = {'message': "We coun't save you datas"}
 	data = json.dumps(result)
 	return json_response(data)
 
@@ -74,7 +83,7 @@ def sms(request):
     body = request.GET.get('Body', None)
     from_number = request.GET.get('From', None)
     if body and 'muni' in string.lower(body):
-        for user in user_form.objects.filter(phone_number=from_number[2:]):
+        for user in Notification.objects.filter(phone_number=from_number[2:]):
             user.activated = False
             user.save()
         # response doesn't work now, so use send_message() instead of this
