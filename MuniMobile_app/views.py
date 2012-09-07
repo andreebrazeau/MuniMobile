@@ -47,6 +47,7 @@ def get_predictions_for_stop(request):
 	stop_id = request.POST.get('stop_id', False)
 	route_tag = request.POST.get('route_tag', False)
 	result = json_get_predictions_for_stop(stop_id, route_tag)
+	print result
 	data = json.dumps(result)
 	return json_response(data)
 
