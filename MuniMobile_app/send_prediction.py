@@ -1,24 +1,12 @@
 import nextbus, models, os, time, string
-from twilio.rest import TwilioRestClient
 from datetime import datetime, timedelta
 from pytz import timezone
 import pytz
 import logging
+
 os.environ['DJANGO_SETTINGS_MODULE'] = "MuniMobile.settings"
 
-# account = os.environ['twilio_account']
-# token = os.environ['twilio_token']
-
-import twilio_token
-account = twilio_token.account
-token = twilio_token.token
-
-print account, token
-client = TwilioRestClient(account, token)
-
-
 def check_for_texts(): # get all users from the database
-    now = datetime.now()
     # each user has: text_time, busline, direction, stop, phone_num
     for user in models.Notification.objects.filter(activated=True):
         route_tag = user.route_tag # whatever user's route tag is
@@ -69,15 +57,15 @@ def message(predictions):
     direction = predictions[0].direction.title
     return "The %s line going %s is arriving in %s minutes, to cancel your schedule, reply 'muni'." %(title, direction, string_predictions)
 
-def send_message(message, phone_number):
-    print message
-    message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
+def get_notification(now):
+    models.Notification.notification_in_periode(now)
 
-def main():
-    check_for_texts()
+def main(request):
+    now = datetime.now()
+    list_notif = get_notification(now)
+    print list_notif
+    
 
-if __name__ == "__main__":
-    main()
 
 '''
 import MuniMobile_app.prediction
