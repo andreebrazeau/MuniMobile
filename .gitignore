@@ -1,5 +1,5 @@
 *.pyc
-.gitingnore
 venv
-MuniMobile_app/twilio_tokens.py
+MuniMobile_app/twilio_token.py
 email.txt
+start.sh

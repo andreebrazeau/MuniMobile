@@ -23,7 +23,8 @@ def json_get_predictions_for_stop(stop_id, route_tag):
     predictions = nextbus.get_predictions_for_stop('sf-muni',stop_id)
     list_prediction = []
     for prediction in predictions.predictions:
-        list_prediction.append(prediction.minutes)
+        if prediction.direction.route.tag == route_tag:
+            list_prediction.append(prediction.minutes)
     dict = {}
     dict['predictions'] = list_prediction
     return dict

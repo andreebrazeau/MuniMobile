@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="../static/img/favicon.ico">
-    <title>Muni Mobile TODO: NOT DECIDE YET!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/img/favicon.ico?v=2">
+    <title>MuniMobile</title>
     <!-- TODO: change it to STATIC_URL -->
-    <!-- <link href="../staticcss/bootstrap.min.css" rel="stylesheet"> -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="../static/css/docs.css" rel="stylesheet">
@@ -24,12 +24,22 @@
     </script>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <div class="container">
       <div class="accordion" id="accordion2">
-        <img src="../static/img/title.png" width=300 class="pull-left">
-        <p style="padding-top: 30px;">
-          MuniMobile is a web application that will text you scheduled, real-time updates of Muni busses approaching your stop.
-        </p>
+        <header>
+          <img src="../static/img/title.png" width=300 class="pull-left">
+          <div style="padding-top: 30px;">
+            MuniMobile is a web application that will text you scheduled, real-time updates of Muni buses approaching your stop.
+          </div>
+        </header>
         <div style="clear: both;"></div>
         <div class="accordion-group">
           <div class="accordion-heading">
@@ -127,6 +137,20 @@
             </div>
           </div>
         </div>
+        <footer>
+          <p>
+            <a href="mailto:munimobile.contact@gmail.com" target="blank">munimobile.contact@gmail.com</a> / <a href="https://twitter.com/munimobile" target="blank">@munimobile</a>
+          </p>
+          <div>
+            <span class="socialbutton">
+              <a href="https://twitter.com/share" class="twitter-share-button" data-via="munimobile">Tweet</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </span>
+            <span class="socialbutton">
+              <div class="fb-like" data-href="http://munimobile.herokuapp.com/" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true"></div>
+            </span>
+          </div>
+        </footer>
       </div>
     </div><!-- container -->
 
@@ -137,6 +161,7 @@
       var selectedRouteTag;
       var selectedDirectionTag;
       var selectedStopId;
+      var intervalId;
       $(document).ready(function() {
         var data = JSON.parse(localStorage.getItem('allRoutes'));
         if (data != null) {
@@ -257,13 +282,15 @@
         pattern = /^(0?[1-9]|1[0-2]):(0?[0-9]|[1-5][0-9])$/;
         if (!pattern.test(fromDate)) {
           errorMsg += 'From should be HH:MM(AM/PM) format.<br>';
+        } else {
+          fromDate = formatDate(pattern, fromDate, $('#fromDateAmPm').val());
         }
-        fromDate = formatDate(pattern, fromDate, $('#fromDateAmPm').val());
         var toDate = $('#toDate').val();
         if (!pattern.test(toDate)) {
           errorMsg += 'To should be HH:MM(AM/PM) format.<br>';
+        } else {
+          toDate = formatDate(pattern, toDate, $('#toDateAmPm').val());
         }
-        toDate = formatDate(pattern, toDate, $('#toDateAmPm').val());
         var minutesAway = $('#minutesAway').val();
         if (isNaN(Number(minutesAway))) {
           errorMsg += 'Minutes Away should be Number.<br>';
@@ -278,8 +305,6 @@
           }
         }
 
-        console.log(fromDate);
-        console.log(toDate);
         if (errorMsg.length > 0) {
           $('#formSuccess').html('');
           $('#formSuccess').hide();
@@ -324,6 +349,7 @@
         $('#formSuccess').html('');
         $('#formError').hide();
         $('#formSuccess').hide();
+        clearInterval(intervalId);
       }
 
       function getDirectionsSuccess(data) {
@@ -406,7 +432,7 @@
         $('#livePredictions').html(predictions_str);
         $('#predictions > div.progress').hide();
         $('#form').show();
-        setInterval("updatePredictions()", 30000);
+        intervalId = setInterval("updatePredictions()", 30000);
       }
 
       function updatePredictions() {
