@@ -1,0 +1,67 @@
+Predictions(f
+{'directions': 
+[
+Direction(
+{'route': Route({'tag': '21', 'title': '21-Hayes'}), tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 
+
+Direction(
+{'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 
+
+Direction(
+{'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 
+
+Direction(
+{'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 
+
+Direction(
+{'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB5', 'title': 'Outbound to the Richmond District'}), 
+
+Direction(
+{'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'})],
+
+'stop_title': 
+'Market St & Montgomery St', 
+
+'messages': 
+set(['sfmta.com or 3 1 1\nfor Muni info', 'PROOF OF PAYMENT\nis required when\non a Muni vehicle\nor in a station.']),
+
+
+'predictions': 
+[
+Prediction(
+{'direction': 
+Direction({'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 
+'epoch_time': 1347059641366, 
+'seconds': 166, 
+'is_departing': False, 
+'minutes': 2, 
+'block': '3837'}), 
+
+Prediction(
+{'direction': 
+Direction({'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 
+'epoch_time': 1347059647582, 
+'seconds': 173, 
+'is_departing': False, 
+'minutes': 2, 
+'block': '3101'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347059652933, 'seconds': 178, 'is_departing': False, 'minutes': 2, 'block': '3817'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB5', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347059728533, 'seconds': 253, 'is_departing': False, 'minutes': 4, 'block': '0554'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347059850860, 'seconds': 376, 'is_departing': False, 'minutes': 6, 'block': '0514'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 'epoch_time': 1347059872727, 'seconds': 398, 'is_departing': False, 'minutes': 6, 'block': '3819'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347059893617, 'seconds': 419, 'is_departing': False, 'minutes': 6, 'block': '3808'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB5', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347060108428, 'seconds': 633, 'is_departing': False, 'minutes': 10, 'block': '0555'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '21', 'title': '21-Hayes'}), 'tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 'epoch_time': 1347060167437, 'seconds': 692, 'is_departing': False, 'minutes': 11, 'block': '2109'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 'epoch_time': 1347060237810, 'seconds': 763, 'is_departing': False, 'minutes': 12, 'block': '3827'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347060276588, 'seconds': 802, 'is_departing': False, 'minutes': 13, 'block': '3804'}), Prediction({'direction': Direction({'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347060366525, 'seconds': 891, 'is_departing': False, 'minutes': 14, 'block': '3102'}), Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347060394838, 'seconds': 920, 'is_departing': False, 'minutes': 15, 'block': '0504'}), Prediction({'direction': Direction({'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 'epoch_time': 1347060532727, 'seconds': 1058, 'is_departing': False, 'minutes': 17, 'block': '3825'}), Prediction({'direction': Direction({'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347060673617, 'seconds': 1199, 'is_departing': False, 'minutes': 19, 'block': '3810'}), Prediction({'direction': Direction({'route': Route({'tag': '21', 'title': '21-Hayes'}), 'tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 'epoch_time': 1347060767437, 'seconds': 1292, 'is_departing': False, 'minutes': 21, 'block': '2152'}), Prediction({'direction': Direction({'route': Route({'tag': '38L', 'title': '38L-Geary Limited'}), 'tag': '38L_OB', 'title': 'Outbound to 48th Avenue'}), 'epoch_time': 1347060832727, 'seconds': 1358, 'is_departing': False, 'minutes': 22, 'block': '3832'}), Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347060934838, 'seconds': 1460, 'is_departing': False, 'minutes': 24, 'block': '0521'}), Prediction({'direction': Direction({'route': Route({'tag': '38', 'title': '38-Geary'}), 'tag': '38_OB4', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347061116588, 'seconds': 1642, 'is_departing': False, 'minutes': 27, 'block': '3805'}), Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB5', 'title': 'Outbound to the Richmond District'}), 'epoch_time': 1347061188428, 'seconds': 1713, 'is_departing': False, 'minutes': 28, 'block': '0556'}), Prediction({'direction': Direction({'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347061206525, 'seconds': 1731, 'is_departing': False, 'minutes': 28, 'block': '3151'}), Prediction({'direction': Direction({'route': Route({'tag': '21', 'title': '21-Hayes'}), 'tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 'epoch_time': 1347061367437, 'seconds': 1892, 'is_departing': False, 'minutes': 31, 'block': '2102'}), Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347061580387, 'seconds': 2105, 'is_departing': False, 'minutes': 35, 'block': '0505'}), Prediction({'direction': Direction({'route': Route({'tag': '21', 'title': '21-Hayes'}), 'tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 'epoch_time': 1347061967437, 'seconds': 2492, 'is_departing': False, 'minutes': 41, 'block': '2107'}), Prediction({'direction': Direction({'route': Route({'tag': '5', 'title': '5-Fulton'}), 'tag': '05_OB2', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347062014838, 'seconds': 2540, 'is_departing': False, 'minutes': 42, 'block': '0506'}), Prediction({'direction': Direction({'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347062046525, 'seconds': 2571, 'is_departing': False, 'minutes': 42, 'block': '3109'}), Prediction({'direction': Direction({'route': Route({'tag': '21', 'title': '21-Hayes'}), 'tag': '21_OB4', 'title': 'Outbound to Golden Gate Park'}), 'epoch_time': 1347062567437, 'seconds': 3092, 'is_departing': False, 'minutes': 51, 'block': '2151'}), 
+
+Prediction({'direction': Direction({'route': Route({'tag': '31', 'title': '31-Balboa'}), 'tag': '31_OB2MB', 'title': 'Outbound to Ocean Beach'}), 'epoch_time': 1347062886525, 'seconds': 3411, 'is_departing': False, 'minutes': 56, 'block': '3103'})]})
