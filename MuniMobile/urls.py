@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'MuniMobile_app.views.index'),
     url(r'^prediction$', 'MuniMobile_app.send_prediction.main'),
+    url(r'^prediction$', 'MuniMobile_app.views.prediction'),
     url(r'^check_predictions$', 'MuniMobile_app.views.check_predictions'),
     url(r'^get_all_routes$', 'MuniMobile_app.views.get_all_routes'),
     url(r'^get_directions_of_route$', 'MuniMobile_app.views.get_directions_of_route'),
