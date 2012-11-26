@@ -2,12 +2,12 @@
 # You cannot run it directly.
 # Created by Davide Di Blasi <davidedb@gmail.com>.
 
-alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PATH" && unset _OLD_VIRTUAL_PATH; rehash; test $?_OLD_VIRTUAL_PROMPT != 0 && set prompt="$_OLD_VIRTUAL_PROMPT" && unset _OLD_VIRTUAL_PROMPT; unsetenv VIRTUAL_ENV; test "\!:*" != "nondestructive" && unalias deactivate'
+alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PATH" && unset _OLD_VIRTUAL_PATH; rehash; test $?_OLD_VIRTUAL_PROMPT != 0 && set prompt="$_OLD_VIRTUAL_PROMPT" && unset _OLD_VIRTUAL_PROMPT; unsetenv VIRTUAL_ENV; test "\!:*" != "nondestructive" && unalias deactivate && unalias pydoc'
 
 # Unset irrelavent variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/andreebrazeau/Dropbox/Developher/MuniMobile/venv"
+setenv VIRTUAL_ENV "/Users/andreebrazeau/Sites/MuniMobile/env"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"
@@ -27,6 +27,8 @@ else
 endif
 set prompt = "[$env_name] $prompt"
 unset env_name
+
+alias pydoc python -m pydoc
 
 rehash
 

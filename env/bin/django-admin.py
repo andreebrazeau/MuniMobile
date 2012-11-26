@@ -1,4 +1,4 @@
-#!/Users/andreebrazeau/Dropbox/Developher/MuniMobile/venv/bin/python
+#!/Users/andreebrazeau/Sites/MuniMobile/env/bin/python
 from django.core import management
 
 if __name__ == "__main__":

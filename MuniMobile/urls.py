@@ -8,6 +8,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'MuniMobile_app.views.index'),
+    url(r'^prediction$', 'MuniMobile_app.send_prediction.main'),
     url(r'^prediction$', 'MuniMobile_app.views.prediction'),
     url(r'^check_predictions$', 'MuniMobile_app.views.check_predictions'),
     url(r'^get_all_routes$', 'MuniMobile_app.views.get_all_routes'),
@@ -15,5 +16,5 @@ urlpatterns = patterns('',
     url(r'^get_stops$', 'MuniMobile_app.views.get_stops'),
     url(r'^get_predictions_for_stop$', 'MuniMobile_app.views.get_predictions_for_stop'),
     url(r'^set_notification$', 'MuniMobile_app.views.set_notification'),
-    url(r'^sms$','MuniMobile_app.views.sms')
+    url(r'^sms$','MuniMobile_app.sms.receive_sms')
 )

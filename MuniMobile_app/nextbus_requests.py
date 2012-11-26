@@ -1,6 +1,6 @@
 import nextbus
 
-def json_get_all_routes():
+def get_all_routes():
     routes = nextbus.get_all_routes_for_agency('sf-muni')
     list = []
     for route in routes:
@@ -9,7 +9,7 @@ def json_get_all_routes():
         list.append(route_dict)
     return list
 
-def json_get_all_directions(route_tag):
+def get_all_directions(route_tag):
     route = nextbus.get_route_config('sf-muni',route_tag)
     directions = route.directions
     dir = []
@@ -19,17 +19,23 @@ def json_get_all_directions(route_tag):
         dir.append(dir_dict)
     return dir
 
-def json_get_predictions_for_stop(stop_id, route_tag):
+def get_predictions_for_stop(stop_id, route_tag):
     predictions = nextbus.get_predictions_for_stop('sf-muni',stop_id)
+
     list_prediction = []
     for prediction in predictions.predictions:
         if prediction.direction.route.tag == route_tag:
+<<<<<<< HEAD:MuniMobile_app/nextbus_requests.py
+            list_prediction.append(prediction)
+    return list_prediction
+=======
             list_prediction.append(prediction.minutes)
     dict = {}
     dict['predictions'] = list_prediction
     return dict
+>>>>>>> 84ed758eb356f7bfa1aad4427abf36681f9f2634:MuniMobile_app/json_data.py
 
-def json_get_all_stops(route_tag, direction_tag):
+def get_all_stops(route_tag, direction_tag):
     route = nextbus.get_route_config('sf-muni', route_tag)
     directions = route.directions
     stop_list = []
