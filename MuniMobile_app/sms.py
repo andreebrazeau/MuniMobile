@@ -20,7 +20,6 @@ def receive_sms(request):
         send_message(message, from_number)
     return None
 
-def send_sms(message):
-    def send_message(message, phone_number):
+def send_message(message, phone_number):
     print message
     message = client.sms.messages.create(to=phone_number, from_="+16502314762", body=message)
