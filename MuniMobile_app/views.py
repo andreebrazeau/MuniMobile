@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from MuniMobile_app.models import Notification
-from MuniMobile_app.prediction import *
 import nextbus_requests
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json, models, string, twilio.twiml

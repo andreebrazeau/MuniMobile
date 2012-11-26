@@ -25,15 +25,9 @@ def get_predictions_for_stop(stop_id, route_tag):
     list_prediction = []
     for prediction in predictions.predictions:
         if prediction.direction.route.tag == route_tag:
-<<<<<<< HEAD:MuniMobile_app/nextbus_requests.py
             list_prediction.append(prediction)
     return list_prediction
-=======
-            list_prediction.append(prediction.minutes)
-    dict = {}
-    dict['predictions'] = list_prediction
-    return dict
->>>>>>> 84ed758eb356f7bfa1aad4427abf36681f9f2634:MuniMobile_app/json_data.py
+
 
 def get_all_stops(route_tag, direction_tag):
     route = nextbus.get_route_config('sf-muni', route_tag)
