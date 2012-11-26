@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'MuniMobile_app',
+    'django.contrib.admin'
 )
 
 # A sample logging configuration. The only tangible logging

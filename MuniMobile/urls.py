@@ -2,8 +2,8 @@ from django.conf.urls import patterns, include, url
 
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,5 +16,7 @@ urlpatterns = patterns('',
     url(r'^get_stops$', 'MuniMobile_app.views.get_stops'),
     url(r'^get_predictions_for_stop$', 'MuniMobile_app.views.get_predictions_for_stop'),
     url(r'^set_notification$', 'MuniMobile_app.views.set_notification'),
-    url(r'^sms$','MuniMobile_app.sms.receive_sms')
+    url(r'^sms$','MuniMobile_app.sms.receive_sms'),
+
+    url(r'^admin/', include(admin.site.urls)),
 )
