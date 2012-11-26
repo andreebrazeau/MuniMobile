@@ -1,4 +1,5 @@
 *.pyc
+MuniMobile/settings.pyc
 venv
 MuniMobile_app/twilio_token.py
 email.txt
